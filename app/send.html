@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Milkcocoa 送信サンプル</title>
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/app.css" />
+  <script src="//cdn.mlkcca.com/v0.6.0/milkcocoa.js"></script>
+  <script src="scripts/load-milkcocoa.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Milkcocoa 送信サンプル</h1>
+    <div class="description">
+      <div milkform-fallback style="display: none;">Milkcocoaが対応していないブラウザでは、フォームが表示されません。その代わりにmilkform-fallbackという属性を含む要素があれば、そちらが表示されます。具体的には、ユーザーエージェントがAndroidの4系未満、IE9以下の場合フォールバックが表示されます。フォールバックには、メールアドレスを記載して問い合わせを促すようにすると良いかと思います。</div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row form-group">
+          <label class="col-xs-2 control-label" for="id_title">タイトル<br /><span class="label label-danger">必須</span></label>
+          <div class="col-xs-10">
+            <input id="id_title" name="id_title" type="text" class="form-control" style="width:60%;" required />
+          </div>
+        </div>
+        <div class="row form-group">
+          <label class="col-xs-2 control-label" for="id_content">本文<br /><span class="label label-danger">必須</span></label>
+          <div class="col-xs-10">
+            <input id="id_content" name="id_content" type="text" class="form-control" style="width:90%;" required />
+          </div>
+        </div>
+        <div class="submit-frame">
+          <input type="button" value="送信する" id="btnSend" class="btn btn-block btn-submit" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">Copyright &copy; 2016</p>
+    </div>
+  </div>
+</body>
+<script>
+  (function () {
+    document.getElementById('id_title').value = 'タイトル';
+    var el = document.getElementById("btnSend");
+    el.addEventListener("click", function() {
+      var ds = milkcocoa.dataStore('messages');
+      ds.send({title : document.getElementById('id_title').value, content : document.getElementById('id_content').value});
+      alert('送信しました。');
+      document.getElementById('id_content').value = '';
+    }, false);
+  }());
+</script>
+
+</html>
